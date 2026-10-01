@@ -1,0 +1,1235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09051a" />
+    <title>Hello October — Chosen Dev</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+
+      :root {
+        --bg: #080612;
+        --bg2: #120a27;
+        --gold: #f6d58a;
+        --gold2: #fff0bd;
+        --text: #ffffff;
+        --muted: #c8c1d7;
+        --glass: rgba(255, 255, 255, 0.075);
+        --line: rgba(255, 255, 255, 0.14);
+        --shadow: 0 25px 80px rgba(0, 0, 0, 0.42);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(
+          circle at 50% 0%,
+          #2a1650 0%,
+          #100a22 35%,
+          #080612 75%
+        );
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+      }
+
+      button:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 4px;
+      }
+
+      .page {
+        min-height: 100vh;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+      }
+
+      /* PREMIUM BACKGROUND */
+
+      .aurora,
+      .aurora:before,
+      .aurora:after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        z-index: -3;
+        filter: blur(10px);
+      }
+
+      .aurora {
+        inset: -20%;
+        background:
+          radial-gradient(
+            ellipse at 50% 20%,
+            rgba(151, 92, 255, 0.17),
+            transparent 38%
+          ),
+          radial-gradient(
+            ellipse at 20% 70%,
+            rgba(255, 196, 83, 0.08),
+            transparent 30%
+          ),
+          radial-gradient(
+            ellipse at 80% 60%,
+            rgba(88, 94, 255, 0.11),
+            transparent 30%
+          );
+        animation: aurora 14s ease-in-out infinite alternate;
+      }
+
+      .aurora:before {
+        width: 50vw;
+        height: 50vw;
+        left: 5%;
+        top: 15%;
+        background: rgba(112, 57, 255, 0.12);
+        border-radius: 50%;
+      }
+
+      .aurora:after {
+        width: 40vw;
+        height: 40vw;
+        right: 4%;
+        bottom: 5%;
+        background: rgba(247, 190, 67, 0.06);
+        border-radius: 50%;
+      }
+
+      @keyframes aurora {
+        to {
+          transform: scale(1.08) translate3d(0, -1%, 0);
+        }
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        opacity: 0.11;
+
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+
+        background-size: 70px 70px;
+
+        mask-image: linear-gradient(to bottom, black, transparent 75%);
+      }
+
+      .stars {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: #fff;
+        opacity: 0.45;
+        animation: twinkle 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes twinkle {
+        to {
+          opacity: 0.12;
+          transform: scale(0.55);
+        }
+      }
+
+      /* WATERMARK */
+
+      .watermark {
+        position: fixed;
+        z-index: -1;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-24deg);
+
+        font-size: clamp(4rem, 13vw, 11rem);
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        white-space: nowrap;
+
+        color: rgba(255, 255, 255, 0.018);
+
+        user-select: none;
+        pointer-events: none;
+      }
+
+      /* BRAND */
+
+      .brand {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        z-index: 20;
+
+        font-size: 0.76rem;
+        letter-spacing: 0.24em;
+        font-weight: 700;
+
+        color: rgba(255, 240, 189, 0.72);
+        text-transform: uppercase;
+      }
+
+      .brand:after {
+        content: "";
+        display: inline-block;
+        width: 28px;
+        height: 1px;
+
+        background: linear-gradient(90deg, var(--gold), transparent);
+
+        margin: 0 0 3px 8px;
+      }
+
+      /* SCREEN */
+
+      .screen {
+        min-height: 100vh;
+        width: 100%;
+
+        display: grid;
+        place-items: center;
+
+        padding: 90px 20px 45px;
+
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+
+        position: relative;
+      }
+
+      .screen.hidden {
+        display: none;
+      }
+
+      .screen.leaving {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+
+      .container {
+        width: min(930px, 100%);
+        text-align: center;
+      }
+
+      /* TEXT */
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+
+        color: var(--gold);
+
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+
+        margin-bottom: 20px;
+      }
+
+      .eyebrow:before,
+      .eyebrow:after {
+        content: "";
+        height: 1px;
+        width: 34px;
+
+        background: linear-gradient(90deg, transparent, var(--gold));
+      }
+
+      .eyebrow:after {
+        background: linear-gradient(90deg, var(--gold), transparent);
+      }
+
+      h1,
+      h2 {
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+        line-height: 1.02;
+      }
+
+      h1 {
+        font-size: clamp(4rem, 12vw, 8.8rem);
+        letter-spacing: -0.045em;
+
+        background: linear-gradient(
+          120deg,
+          #fff 25%,
+          var(--gold2) 55%,
+          #d9b8ff 90%
+        );
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+
+        text-shadow: 0 0 55px rgba(246, 213, 138, 0.09);
+      }
+
+      .lead {
+        max-width: 600px;
+        margin: 22px auto 0;
+
+        color: var(--muted);
+
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        line-height: 1.75;
+      }
+
+      /* HERO CARD */
+
+      .hero-card {
+        margin: 38px auto 0;
+
+        width: min(520px, 100%);
+
+        padding: 18px;
+
+        border: 1px solid var(--line);
+        border-radius: 30px;
+
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.11),
+          rgba(255, 255, 255, 0.035)
+        );
+
+        box-shadow:
+          var(--shadow),
+          inset 0 1px rgba(255, 255, 255, 0.1);
+
+        backdrop-filter: blur(18px);
+      }
+
+      .inner-card {
+        padding: 35px 25px;
+
+        border-radius: 22px;
+
+        border: 1px solid rgba(246, 213, 138, 0.18);
+
+        background:
+          radial-gradient(
+            circle at 50% 0%,
+            rgba(246, 213, 138, 0.09),
+            transparent 55%
+          ),
+          rgba(4, 3, 12, 0.25);
+      }
+
+      .date {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        color: #eee1c2;
+        margin-bottom: 24px;
+      }
+
+      /* BUTTONS */
+
+      .cta {
+        border: 0;
+        cursor: pointer;
+
+        padding: 16px 27px;
+
+        border-radius: 999px;
+
+        font-weight: 700;
+        letter-spacing: 0.01em;
+
+        background: linear-gradient(135deg, #fff1bf, var(--gold));
+
+        color: #1a1120;
+
+        box-shadow: 0 10px 35px rgba(246, 213, 138, 0.2);
+
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          filter 0.2s ease;
+
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+          110deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.65),
+          transparent 70%
+        );
+
+        transform: translateX(-120%);
+        transition: transform 0.65s ease;
+      }
+
+      .cta:hover:before {
+        transform: translateX(120%);
+      }
+
+      .cta:hover {
+        transform: translateY(-2px);
+
+        box-shadow: 0 15px 42px rgba(246, 213, 138, 0.3);
+
+        filter: brightness(1.03);
+      }
+
+      .cta:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      .signature {
+        margin-top: 27px;
+
+        color: rgba(255, 255, 255, 0.42);
+
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      /* CHOICES */
+
+      .section-title {
+        font-size: clamp(2.2rem, 6vw, 4.3rem);
+        margin-bottom: 15px;
+      }
+
+      .section-copy {
+        color: var(--muted);
+        line-height: 1.7;
+
+        max-width: 600px;
+
+        margin: 0 auto 35px;
+      }
+
+      .choices {
+        display: grid;
+
+        grid-template-columns: repeat(5, 1fr);
+
+        gap: 13px;
+
+        margin: 0 auto;
+
+        width: min(100%, 900px);
+      }
+
+      .choice {
+        min-height: 155px;
+
+        padding: 22px 12px;
+
+        border: 1px solid var(--line);
+        border-radius: 22px;
+
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.085),
+          rgba(255, 255, 255, 0.035)
+        );
+
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18);
+
+        cursor: pointer;
+
+        transition: 0.25s ease;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 13px;
+
+        position: relative;
+        overflow: hidden;
+      }
+
+      .choice:before {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+
+        background: radial-gradient(
+          circle at 50% 0%,
+          rgba(246, 213, 138, 0.12),
+          transparent 60%
+        );
+
+        opacity: 0;
+
+        transition: 0.25s;
+      }
+
+      .choice:hover {
+        transform: translateY(-5px);
+
+        border-color: rgba(246, 213, 138, 0.42);
+
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.3);
+      }
+
+      .choice:hover:before {
+        opacity: 1;
+      }
+
+      .choice .icon {
+        font-size: 2rem;
+        position: relative;
+      }
+
+      .choice strong {
+        font-size: 0.9rem;
+        position: relative;
+      }
+
+      .choice small {
+        color: #aaa3b8;
+        font-size: 0.72rem;
+        position: relative;
+      }
+
+      .back {
+        margin-top: 27px;
+
+        background: transparent;
+        border: 0;
+
+        color: #9e96ac;
+
+        cursor: pointer;
+      }
+
+      .back:hover {
+        color: #fff;
+      }
+
+      /* MESSAGE */
+
+      .message-wrap {
+        width: min(680px, 100%);
+        margin: auto;
+      }
+
+      .message-card {
+        position: relative;
+
+        padding: 38px 28px;
+
+        border: 1px solid rgba(246, 213, 138, 0.2);
+
+        border-radius: 30px;
+
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.035)
+        );
+
+        box-shadow:
+          var(--shadow),
+          inset 0 1px rgba(255, 255, 255, 0.1);
+
+        backdrop-filter: blur(20px);
+
+        overflow: hidden;
+      }
+
+      .message-card:before {
+        content: "";
+
+        position: absolute;
+
+        width: 280px;
+        height: 280px;
+
+        border-radius: 50%;
+
+        background: rgba(246, 213, 138, 0.07);
+
+        filter: blur(25px);
+
+        top: -150px;
+        left: 50%;
+
+        transform: translateX(-50%);
+      }
+
+      .message-icon {
+        font-size: 2.8rem;
+        position: relative;
+      }
+
+      .message-label {
+        color: var(--gold);
+
+        font-size: 0.72rem;
+        font-weight: 700;
+
+        letter-spacing: 0.2em;
+
+        text-transform: uppercase;
+
+        margin: 17px 0;
+      }
+
+      .message-card h2 {
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        position: relative;
+      }
+
+      .message-card p {
+        position: relative;
+
+        color: #ddd6e4;
+
+        line-height: 1.85;
+
+        font-size: 1.02rem;
+
+        margin: 20px auto 0;
+
+        max-width: 560px;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        margin-top: 28px;
+      }
+
+      .secondary {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+
+        background: rgba(255, 255, 255, 0.055);
+
+        padding: 13px 20px;
+
+        border-radius: 999px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+      }
+
+      .secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+
+        border-color: rgba(255, 255, 255, 0.3);
+
+        transform: translateY(-2px);
+      }
+
+      /* FOOTER */
+
+      .footer {
+        position: fixed;
+
+        bottom: 18px;
+
+        left: 0;
+        right: 0;
+
+        text-align: center;
+
+        color: rgba(255, 255, 255, 0.32);
+
+        font-size: 0.65rem;
+
+        letter-spacing: 0.2em;
+
+        text-transform: uppercase;
+
+        pointer-events: none;
+      }
+
+      /* TOAST */
+
+      .toast {
+        position: fixed;
+
+        left: 50%;
+        bottom: 58px;
+
+        transform: translate(-50%, 20px);
+
+        opacity: 0;
+
+        z-index: 50;
+
+        padding: 12px 18px;
+
+        border-radius: 999px;
+
+        background: rgba(22, 16, 35, 0.94);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+
+        font-size: 0.84rem;
+
+        pointer-events: none;
+
+        transition: 0.3s;
+      }
+
+      .toast.show {
+        opacity: 1;
+
+        transform: translate(-50%, 0);
+      }
+
+      /* ANIMATION */
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .reveal {
+        animation: reveal 0.7s ease both;
+      }
+
+      /* TABLET */
+
+      @media (max-width: 800px) {
+        .choices {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .choice:last-child {
+          grid-column: 1/-1;
+          width: calc(50% - 6px);
+          justify-self: center;
+        }
+
+        .watermark {
+          font-size: 18vw;
+        }
+      }
+
+      /* PHONE */
+
+      @media (max-width: 500px) {
+        .brand {
+          top: 18px;
+          left: 18px;
+        }
+
+        .screen {
+          padding: 75px 16px 55px;
+        }
+
+        .hero-card {
+          margin-top: 30px;
+        }
+
+        .inner-card {
+          padding: 28px 18px;
+        }
+
+        .choices {
+          gap: 10px;
+        }
+
+        .choice {
+          min-height: 135px;
+          padding: 18px 8px;
+        }
+
+        .choice:last-child {
+          width: 100%;
+        }
+
+        .choice strong {
+          font-size: 0.82rem;
+        }
+
+        .message-card {
+          padding: 32px 19px;
+        }
+
+        .message-card p {
+          font-size: 0.95rem;
+        }
+
+        .footer {
+          font-size: 0.55rem;
+        }
+      }
+
+      /* REDUCED MOTION */
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          scroll-behavior: auto !important;
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="aurora"></div>
+      <div class="grid"></div>
+      <div class="stars" id="stars"></div>
+
+      <!-- Premium Chosen Dev watermark -->
+      <div class="watermark" aria-hidden="true">CHOSEN DEV</div>
+
+      <div class="brand">Chosen Dev</div>
+
+      <main>
+        <!-- HOME -->
+        <section class="screen" id="home">
+          <div class="container reveal">
+            <div class="eyebrow">October 2026</div>
+
+            <h1>
+              Hello<br />
+              October.
+            </h1>
+
+            <p class="lead">
+              A new month is here. Take a moment, choose what you're hoping for,
+              and receive a little message made for your October.
+            </p>
+
+            <div class="hero-card">
+              <div class="inner-card">
+                <div class="date">01 · October · 2026</div>
+
+                <button class="cta" id="openBtn">
+                  🎁 Open Your October Message
+                </button>
+
+                <div class="signature">
+                  A little October experience · Chosen Dev
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHOICES -->
+        <section class="screen hidden" id="choices">
+          <div class="container">
+            <div class="eyebrow">Make it personal</div>
+
+            <h2 class="section-title">What are you hoping for?</h2>
+
+            <p class="section-copy">
+              Choose what matters most to you this month. Your selection will
+              reveal a message written around your October wish.
+            </p>
+
+            <div class="choices" id="choiceGrid"></div>
+
+            <button class="back" id="backHome">← Back to beginning</button>
+          </div>
+        </section>
+
+        <!-- MESSAGE -->
+        <section class="screen hidden" id="message">
+          <div class="message-wrap reveal" id="messageWrap">
+            <div class="eyebrow">Your October message</div>
+
+            <div class="message-card">
+              <div class="message-icon" id="messageIcon">✨</div>
+
+              <div class="message-label" id="messageCategory">October</div>
+
+              <h2 id="messageTitle">A message for you</h2>
+
+              <p id="messageText"></p>
+
+              <div class="actions">
+                <button class="cta" id="anotherBtn">✨ Another Message</button>
+
+                <button class="secondary" id="shareBtn">↗️ Share This</button>
+
+                <button class="secondary" id="restartBtn">↻ Start Again</button>
+              </div>
+            </div>
+
+            <div class="signature">May October be kind to you · Chosen Dev</div>
+          </div>
+        </section>
+      </main>
+
+      <div class="footer">CHOSEN DEV · OCTOBER 2026</div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <script>
+      "use strict";
+
+      const data = {
+        love: {
+          icon: "❤️",
+          label: "Love & Happiness",
+          title: "A month full of warmth.",
+
+          messages: [
+            "May October fill your days with genuine smiles, meaningful moments, and people who make life feel lighter. May love find room to grow around you.",
+
+            "May this month bring you peaceful connections, honest conversations, and beautiful memories. May you give and receive the kind of happiness that feels real.",
+
+            "May October remind you that you deserve good people, good moments, and a heart that feels at home. Wishing you more reasons to smile this month.",
+          ],
+        },
+
+        money: {
+          icon: "💰",
+          label: "Financial Growth",
+          title: "May your efforts produce results.",
+
+          messages: [
+            "May October bring opportunities that move you forward financially. May your hard work open useful doors and may good news meet you when you least expect it.",
+
+            "May this month bring new ideas, better opportunities, and progress in the things you are building. May your efforts turn into results you can be proud of.",
+
+            "May October be a month of growth, wise decisions, and opportunities that increase your value. May you finish the month further ahead than you started.",
+          ],
+        },
+
+        career: {
+          icon: "🎓",
+          label: "School & Career",
+          title: "Keep moving forward.",
+
+          messages: [
+            "May October bring clarity to your goals and strength for the work ahead. May the skills you are building begin to create opportunities for you.",
+
+            "May your learning, effort, and consistency produce something meaningful this month. Keep showing up—small progress can become a very big difference.",
+
+            "May October bring you the right knowledge, helpful people, and opportunities to take your next step. May your hard work speak for you.",
+          ],
+        },
+
+        opportunity: {
+          icon: "🚀",
+          label: "New Opportunities",
+          title: "Something new can begin.",
+
+          messages: [
+            "May October place the right opportunity in front of you at the right time. May you recognize it, have the courage to take it, and make something valuable from it.",
+
+            "May this month introduce you to ideas, people, and possibilities that move your life forward. Keep your eyes open for doors you did not expect.",
+
+            "May October be the month you discover a new direction, start something meaningful, or finally take the step you have been thinking about.",
+          ],
+        },
+
+        peace: {
+          icon: "🙏",
+          label: "Peace & Good News",
+          title: "May good news find you.",
+
+          messages: [
+            "May October bring peace to the things you cannot control and courage for the things you can. May good news arrive in places where you have been waiting.",
+
+            "May this month give you quieter days, clearer thoughts, and reasons to be grateful. May the things that have been worrying you begin to work out.",
+
+            "May October bring you peace of mind, unexpected blessings, and news that makes you genuinely happy. May you have more calm than pressure this month.",
+          ],
+        },
+      };
+
+      const screens = {
+        home: document.getElementById("home"),
+
+        choices: document.getElementById("choices"),
+
+        message: document.getElementById("message"),
+      };
+
+      const choiceGrid = document.getElementById("choiceGrid");
+
+      const toast = document.getElementById("toast");
+
+      let currentCategory = null;
+
+      let currentIndex = -1;
+
+      let toastTimer;
+
+      /* STAR BACKGROUND */
+
+      function makeStars() {
+        const holder = document.getElementById("stars");
+
+        for (let i = 0; i < 55; i++) {
+          const star = document.createElement("span");
+
+          star.className = "star";
+
+          star.style.left = Math.random() * 100 + "%";
+
+          star.style.top = Math.random() * 100 + "%";
+
+          star.style.animationDelay = Math.random() * 4 + "s";
+
+          star.style.opacity = (0.12 + Math.random() * 0.45).toFixed(2);
+
+          holder.appendChild(star);
+        }
+      }
+
+      /* BUILD CHOICES */
+
+      function buildChoices() {
+        const entries = Object.entries(data);
+
+        const subtitles = {
+          love: "Connection & joy",
+
+          money: "Growth & progress",
+
+          career: "Learning & success",
+
+          opportunity: "Possibilities ahead",
+
+          peace: "Calm & blessings",
+        };
+
+        choiceGrid.innerHTML = entries
+          .map(
+            ([key, item]) => `
+
+            <button
+                class="choice"
+                data-category="${key}"
+                aria-label="Choose ${item.label}"
+            >
+
+                <span class="icon">
+                    ${item.icon}
+                </span>
+
+                <strong>
+                    ${item.label}
+                </strong>
+
+                <small>
+                    ${subtitles[key]}
+                </small>
+
+            </button>
+
+        `,
+          )
+          .join("");
+
+        choiceGrid.querySelectorAll(".choice").forEach((btn) => {
+          btn.addEventListener("click", () =>
+            showMessage(btn.dataset.category),
+          );
+        });
+      }
+
+      /* SCREEN TRANSITION */
+
+      function switchScreen(from, to) {
+        from.classList.add("leaving");
+
+        setTimeout(() => {
+          from.classList.add("hidden");
+
+          from.classList.remove("leaving");
+
+          to.classList.remove("hidden");
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }, 420);
+      }
+
+      /* SHOW MESSAGE */
+
+      function showMessage(category, randomize = false) {
+        currentCategory = category;
+
+        const item = data[category];
+
+        if (!item) return;
+
+        if (!randomize || currentIndex < 0) {
+          currentIndex = Math.floor(Math.random() * item.messages.length);
+        } else if (item.messages.length > 1) {
+          let next = currentIndex;
+
+          while (next === currentIndex) {
+            next = Math.floor(Math.random() * item.messages.length);
+          }
+
+          currentIndex = next;
+        }
+
+        document.getElementById("messageIcon").textContent = item.icon;
+
+        document.getElementById("messageCategory").textContent = item.label;
+
+        document.getElementById("messageTitle").textContent = item.title;
+
+        document.getElementById("messageText").textContent =
+          item.messages[currentIndex];
+
+        const wrap = document.getElementById("messageWrap");
+
+        wrap.classList.remove("reveal");
+
+        void wrap.offsetWidth;
+
+        wrap.classList.add("reveal");
+
+        switchScreen(screens.choices, screens.message);
+      }
+
+      /* GO HOME */
+
+      function goHome() {
+        switchScreen(screens.choices, screens.home);
+      }
+
+      /* RESTART */
+
+      function restart() {
+        currentCategory = null;
+
+        currentIndex = -1;
+
+        switchScreen(screens.message, screens.home);
+      }
+
+      /* TOAST */
+
+      function showToast(message) {
+        clearTimeout(toastTimer);
+
+        toast.textContent = message;
+
+        toast.classList.add("show");
+
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2400);
+      }
+
+      /* SHARE */
+
+      async function shareMessage() {
+        const item = data[currentCategory];
+
+        const text = `Happy New Month! ✨
+
+${item.messages[currentIndex]}
+
+— Chosen Dev | Hello October`;
+
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: "My October Message",
+
+              text,
+            });
+
+            return;
+          } catch (err) {
+            if (err && err.name === "AbortError") {
+              return;
+            }
+          }
+        }
+
+        try {
+          await navigator.clipboard.writeText(text);
+
+          showToast("Message copied — share it anywhere ✨");
+        } catch (err) {
+          showToast("Your message is ready to share ✨");
+        }
+      }
+
+      /* BUTTON EVENTS */
+
+      document
+        .getElementById("openBtn")
+        .addEventListener("click", () =>
+          switchScreen(screens.home, screens.choices),
+        );
+
+      document.getElementById("backHome").addEventListener("click", goHome);
+
+      document
+        .getElementById("anotherBtn")
+        .addEventListener("click", () => showMessage(currentCategory, true));
+
+      document
+        .getElementById("shareBtn")
+        .addEventListener("click", shareMessage);
+
+      document.getElementById("restartBtn").addEventListener("click", restart);
+
+      /* START WEBSITE */
+
+      makeStars();
+
+      buildChoices();
+    </script>
+  </body>
+</html>
