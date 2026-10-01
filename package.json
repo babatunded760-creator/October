@@ -1,0 +1,23 @@
+{
+  "name": "october",
+  "version": "1.0.0",
+  "description": "Hello October - A static HTML website with Vercel Web Analytics",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babatunded760-creator/October.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/babatunded760-creator/October/issues"
+  },
+  "homepage": "https://github.com/babatunded760-creator/October#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
